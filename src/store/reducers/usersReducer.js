@@ -1,6 +1,7 @@
 const initialState = {
     users: [],
     user: null,
+    admin: null,
     error: null,
     login: null,
     loginError: null
