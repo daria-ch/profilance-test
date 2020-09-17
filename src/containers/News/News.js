@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from "react-redux";
-import {Button, Form, FormGroup, Col, Input, NavbarBrand} from 'reactstrap';
+import {Button, Form, FormGroup, Input, NavbarBrand} from 'reactstrap';
 import {deleteArticle, fetchNews} from "../../store/actions/newsActions";
 import Article from "../../components/Article/Article";
 import Spinner from "../../components/UI/Spinner/Spinner";
@@ -45,6 +45,7 @@ class News extends Component {
                     title={this.props.news[article].title}
                     text={this.props.news[article].text}
                     date={this.props.news[article].date}
+                    delete={() => this.props.deleteArticle(article)}
                 />
             });
         }

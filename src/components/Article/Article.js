@@ -1,18 +1,28 @@
-import React from 'react';
-import {Media} from 'reactstrap';
+import React, {Component} from 'react';
+import {connect} from "react-redux";
+import {Button, Media} from 'reactstrap';
 
-const Article = props => {
-    return (
-        <Media>
-            <Media body>
-                <Media heading>
-                    {props.title}
+class Article extends Component {
+    render() {
+        return (
+            <Media>
+                <Media body>
+                    <Media heading>
+                        {this.props.title}
+                        <p>{this.props.approve}</p>
+                    </Media>
+                    {this.props.text}
+                    <p><em>~ {this.props.date}</em></p>
+                    {this.props.admin ? <Button color="danger" onClick={this.props.delete}>Delete</Button> : null}
                 </Media>
-                {props.text}
-                <p><em>~ {props.date}</em></p>
             </Media>
-        </Media>
-    );
-};
+        );
+    }
+}
 
-export default Article;
+const mapStateToProps = state => ({
+    admin: state.users.admin
+});
+
+
+export default connect(mapStateToProps)(Article);
