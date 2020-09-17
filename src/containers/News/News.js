@@ -1,10 +1,10 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from "react-redux";
+import {NavLink as RouterNavLink} from "react-router-dom";
 import {Button, Form, FormGroup, Input, NavbarBrand} from 'reactstrap';
-import {deleteArticle, fetchNews} from "../../store/actions/newsActions";
+import {deleteArticle, editArticle, fetchNews} from "../../store/actions/newsActions";
 import Article from "../../components/Article/Article";
 import Spinner from "../../components/UI/Spinner/Spinner";
-import {NavLink as RouterNavLink} from "react-router-dom";
 
 class News extends Component {
 
@@ -16,8 +16,12 @@ class News extends Component {
         this.props.fetchNews();
     }
 
-    updateSearch(event) {
+    updateSearch = (event) => {
         this.setState({search: event.target.value.substr(0, 20)});
+    }
+
+    showAlert = () => {
+        alert('Hello');
     }
 
     render() {
@@ -40,13 +44,27 @@ class News extends Component {
             });
         } else {
             news = newsList.reverse().map(article => {
-                return <Article
-                    key={article}
-                    title={this.props.news[article].title}
-                    text={this.props.news[article].text}
-                    date={this.props.news[article].date}
-                    delete={() => this.props.deleteArticle(article)}
-                />
+                if (this.props.news[article].approve === false) {
+                    return <Article
+                        key={article}
+                        title={this.props.news[article].title}
+                        text={this.props.news[article].text}
+                        date={this.props.news[article].date}
+                        delete={() => this.props.deleteArticle(article)}
+                        approve='Не одобрено'
+                        changeStatus={'/news/' + article}
+                    />
+                } else {
+                    return <Article
+                        key={article}
+                        title={this.props.news[article].title}
+                        text={this.props.news[article].text}
+                        date={this.props.news[article].date}
+                        delete={() => this.props.deleteArticle(article)}
+                        approve='Одобрено'
+                        changeStatus={'/news/' + article}
+                    />
+                }
             });
         }
 
@@ -84,7 +102,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     fetchNews: () => dispatch(fetchNews()),
-    deleteArticle: article => dispatch(deleteArticle(article))
+    deleteArticle: article => dispatch(deleteArticle(article)),
+    editArticle: (article, newArticle) => dispatch(editArticle(article, newArticle))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(News);

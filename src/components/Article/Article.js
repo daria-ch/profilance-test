@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import {Button, Media} from 'reactstrap';
+import {Button, Media, NavLink} from 'reactstrap';
 
 class Article extends Component {
     render() {
@@ -9,12 +9,13 @@ class Article extends Component {
                 <Media body>
                     <Media heading>
                         {this.props.title}
-                        <p>{this.props.approve}</p>
                     </Media>
+                    <NavLink href={this.props.changeStatus}>{this.props.approve}</NavLink>
                     {this.props.text}
                     <p><em>~ {this.props.date}</em></p>
                     {this.props.admin ? <Button color="danger" onClick={this.props.delete}>Delete</Button> : null}
                 </Media>
+                <hr/>
             </Media>
         );
     }
