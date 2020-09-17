@@ -29,7 +29,9 @@ export const postArticle = article => {
         try {
             dispatch(fetchNewsRequest());
             await axiosApi.post('/news.json', article);
-            dispatch(fetchNewsSuccess());
+            const response = await axiosApi.get('/news.json');
+            const news = response.data;
+            dispatch(fetchNewsSuccess(news));
         } catch (e) {
             dispatch(fetchNewsFailure(e));
         }
