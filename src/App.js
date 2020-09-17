@@ -6,21 +6,21 @@ import './App.css';
 import Main from "./containers/Main/Main";
 
 class App extends Component {
-  render() {
-    return (
-        <Fragment>
-            <header>
-                <Toolbar/>
-            </header>
-            <Container style={{marginTop: '20px'}}>
-                <Switch>
-                   *<Route path="/" exact component={Main}/>*
-                    <Route render={() => <h1>Not found</h1>}/>
-                </Switch>
-            </Container>
-        </Fragment>
-    );
-  }
+    render() {
+        return (
+            <Fragment>
+                <header>
+                    <Toolbar/>
+                </header>
+                <Container style={{marginTop: '20px'}}>
+                    <Switch>
+                        <Route path="/" exact component={Main}/>
+                        <Route render={() => <h1>Not found</h1>}/>
+                    </Switch>
+                </Container>
+            </Fragment>
+        );
+    }
 }
 
 export default App;
