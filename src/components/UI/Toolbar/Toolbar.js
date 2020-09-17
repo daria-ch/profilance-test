@@ -15,9 +15,10 @@ class Toolbar extends Component {
         return (
             <Navbar color="light" light expand="md" style={{display: 'flex', justifyContent: 'space-between'}}>
                 <NavbarBrand tag={RouterNavLink} to="/">Главная</NavbarBrand>
+                <NavbarBrand tag={RouterNavLink} to="/news">Новости</NavbarBrand>
                 <div>
                     {!this.props.login ? <LoginModal/> :
-                        <Button color="danger" onClick={this.onButtonClick}>Выйти</Button>}
+                        <Button color="secondary" onClick={this.onButtonClick}>Выйти</Button>}
                 </div>
             </Navbar>
         );
